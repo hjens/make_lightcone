@@ -32,7 +32,7 @@ def parse_options():
 def process_files_list(files_list):
     if _is_nonstring_list(files_list):
         newlist = [process_files_list(f) for f in files_list]
-        if _is_nonstring_list(newlist):
+        if _is_nonstring_list(newlist) and len(newlist) == 1:
             return newlist[0]
         return newlist
     if os.path.isfile(files_list):
