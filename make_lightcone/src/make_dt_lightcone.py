@@ -28,4 +28,11 @@ if __name__ == '__main__':
     if len(sys.argv) <= 1:
         print 'No arguments given. Use -h to print help.'
         sys.exit(2)
-    parse_options()
+    args = parse_options()
+    c2t.set_verbose(True)
+    c2t.set_sim_constants(args.boxsize)
+    xfrac, xfile_type = c2t.get_data_and_type(args.xfrac, cbin_bits = 32, cbin_order = 'c')
+    density, dfile_type = c2t.get_data_and_type(args.density, cbin_bits = 32, cbin_order = 'c')
+
+    dt_lightcone = c2t.calc_dt_lightcone(xfrac, density, args.min_z)
+    c2t.save_cbin(args.output, dt_lightcone)
